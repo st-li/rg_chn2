@@ -10,6 +10,7 @@ from scrapy.exceptions import CloseSpider
 import pymongo
 import pandas as pd
 import hashlib
+import time
 
 class RGSpider1(CrawlSpider):
     name = 'RGSpider1'
@@ -38,7 +39,8 @@ class RGSpider1(CrawlSpider):
     for link in used_links:
         link_key.append(link['_id'])
     client.close()
-
+    print("There are %i used urls in MongoDB" % len(link_key))
+    time.sleep(5)
     used_link_df = pd.DataFrame({'key':link_key})
     joined_list = origin_list.join(used_link_df, how='left', rsuffix="_right")
     final_list = joined_list.loc[joined_list['key_right'].isnull()]
