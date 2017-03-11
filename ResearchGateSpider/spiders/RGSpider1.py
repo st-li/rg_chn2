@@ -7,6 +7,7 @@ from ResearchGateSpider.items import RGPersonItem, RGArticleItem
 from ResearchGateSpider.datafilter import DataFilter
 from ResearchGateSpider.func import parse_text_by_multi_content
 from scrapy.exceptions import CloseSpider
+import pymongo
 import pandas as pd
 import hashlib
 
