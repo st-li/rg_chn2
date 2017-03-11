@@ -1,0 +1,38 @@
+#!/bin/bash
+cd /data/rg_chn2/ResearchGateSpider
+echo "开始无限循环爬取"
+i=0
+while true
+do
+    ((i=i+1));
+    echo "开始第$i次爬取"
+    #scrapy crawl ResearchGateSpider -s JOBDIR=crawls/ResearchGateSpider-3
+    #scrapy crawl ResearchGateSpider -s JOBDIR=/data/seen
+    scrapy crawl RGSpider1 -s JOBDIR=/data/seen_rg_chn -s HTTPCACHE_MONGO_HOST=118.190.45.60 -s HTTPCACHE_MONGO_USER=eol_spider -s HTTPCACHE_MONGO_PWD=m~b4^Uurp\)g -s HTTPCACHE_MONGO_MECHANISM=SCRAM-SHA-1
+    #echo "已抓取文件数"
+    #tree -i .scrapy/ | grep directories
+    echo "切换ip"
+    /usr/bin/changeip
+    echo "休息3秒"
+    sleep 3
+    echo "检查网络状况..."
+    while true
+    do
+      ping=`ping -c 3 www.baidu.com|awk 'NR==7 {print int($4)}'`
+      if [ $ping -ne 0 ];then
+          echo "连续ping通3次www.baidu.com，网络ok"
+          break;
+      else
+          echo "切换ip2"
+          /usr/bin/changeip
+          echo "休息3秒2"
+          sleep 3
+          echo "检查网络状况2..."
+          ping=`ping -c 3 www.baidu.com|awk 'NR==7 {print int($4)}'`
+          if [ $ping -ne 0 ];then
+             echo "连续ping通3次www.baidu.com，网络ok2"
+          fi
+          break;
+      fi
+    done
+done
