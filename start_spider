@@ -8,7 +8,8 @@ do
     echo "开始第$i次爬取"
     #scrapy crawl ResearchGateSpider -s JOBDIR=crawls/ResearchGateSpider-3
     #scrapy crawl ResearchGateSpider -s JOBDIR=/data/seen
-    scrapy crawl RGSpider1 -s JOBDIR=/data/seen_rg_chn -s HTTPCACHE_MONGO_HOST=118.190.45.60 -s HTTPCACHE_MONGO_USER=eol_spider -s HTTPCACHE_MONGO_PWD=m~b4^Uurp\)g -s HTTPCACHE_MONGO_MECHANISM=SCRAM-SHA-1
+    scrapy crawl RGSpider1 -s HTTPCACHE_MONGO_HOST=118.190.45.60 -s HTTPCACHE_MONGO_USER=eol_spider -s HTTPCACHE_MONGO_PWD=m~b4^Uurp\)g -s HTTPCACHE_MONGO_MECHANISM=SCRAM-SHA-1
+	#scrapy crawl RGSpider1 -s JOBDIR=/data/seen_rg_chn -s HTTPCACHE_MONGO_HOST=118.190.45.60 -s HTTPCACHE_MONGO_USER=eol_spider -s HTTPCACHE_MONGO_PWD=m~b4^Uurp\)g -s HTTPCACHE_MONGO_MECHANISM=SCRAM-SHA-1
     #echo "已抓取文件数"
     #tree -i .scrapy/ | grep directories
     echo "切换ip"
