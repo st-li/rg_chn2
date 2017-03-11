@@ -25,7 +25,7 @@ class RGSpider1(CrawlSpider):
     auth_result = db.authenticate(name='eol_spider', password='m~b4^Uurp)g', mechanism='SCRAM-SHA-1')
 
 
-    origin_list = pd.read_csv('/data/pure_chn_link.csv', header=None).ix[:, 0].tolist()
+    origin_list = pd.read_csv('/data/pure_chn_link.csv', header=None)
     # origin_list = pd.read_csv('e:\\work\\pure_chn_link.csv', header=None)
     origin_list.columns = ['url']
     print("#####################################")
