@@ -54,9 +54,18 @@ class RGSpider1(CrawlSpider):
 
     def parse_candidate_overview(self, response):
         if response.status == 429:
-            lostitem_str = 'lost overview: ' + response.url
-            self.lostitem_file.write(lostitem_str)
-            self.lostitem_file.close()
+            # lostitem_str = 'lost overview: ' + response.url
+            # self.lostitem_file.write(lostitem_str)
+            # self.lostitem_file.close()
+            client = pymongo.MongoClient(
+                "118.190.45.60",
+                27017
+            )
+            db = client["RG_Chinese"]
+            auth_result = db.authenticate(name='eol_spider', password='m~b4^Uurp)g', mechanism='SCRAM-SHA-1')
+            collection = db['lost_url']
+            collection.insert_one({'lost_usl':response.url, 'type':'overview'})
+            client.close()
             raise CloseSpider(reason='被封了，准备切换ip')
         print '-----------start to process: ' + response.url
         headers = response.request.headers
@@ -133,9 +142,18 @@ class RGSpider1(CrawlSpider):
 
     def parse_contribution(self, response):
         if response.status == 429:
-            lostitem_str = 'lost contribution: ' + response.url
-            self.lostitem_file.write(lostitem_str)
-            self.lostitem_file.close()
+            # lostitem_str = 'lost contribution: ' + response.url
+            # self.lostitem_file.write(lostitem_str)
+            # self.lostitem_file.close()
+            client = pymongo.MongoClient(
+                "118.190.45.60",
+                27017
+            )
+            db = client["RG_Chinese"]
+            auth_result = db.authenticate(name='eol_spider', password='m~b4^Uurp)g', mechanism='SCRAM-SHA-1')
+            collection = db['lost_url']
+            collection.insert_one({'lost_usl':response.url, 'type':'contribution'})
+            client.close()
             raise CloseSpider(reason=u'被封了，准备切换ip')
 
 
@@ -154,9 +172,18 @@ class RGSpider1(CrawlSpider):
 
     def parse_article(self, response):
         if response.status == 429:
-            lostitem_str = 'lost article: ' + response.url
-            self.lostitem_file.write(lostitem_str)
-            self.lostitem_file.close()
+            # lostitem_str = 'lost article: ' + response.url
+            # self.lostitem_file.write(lostitem_str)
+            # self.lostitem_file.close()
+            client = pymongo.MongoClient(
+                "118.190.45.60",
+                27017
+            )
+            db = client["RG_Chinese"]
+            auth_result = db.authenticate(name='eol_spider', password='m~b4^Uurp)g', mechanism='SCRAM-SHA-1')
+            collection = db['lost_url']
+            collection.insert_one({'lost_usl':response.url, 'type':'article'})
+            client.close()
             raise CloseSpider(reason='被封了，准备切换ip')
 
         item = RGArticleItem()
@@ -176,10 +203,10 @@ class RGSpider1(CrawlSpider):
         return item
     
     def __init__(self, **kwargs):
-        self.lostitem_file = open('/data/pure_chinese_lost.out', 'a+')
+        # self.lostitem_file = open('/data/pure_chinese_lost.out', 'a+')
         super(RGSpider1, self).__init__(**kwargs)
         pass
 
     def close(self, reason):
-        self.lostitem_file.close()
+        # self.lostitem_file.close()
         super(RGSpider1, self).close(self, reason)
